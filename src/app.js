@@ -10,8 +10,30 @@ const app = express();
 app.use(cors());
 const server = http.createServer(app);
 
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+const port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
 function startServer() {
-    server.listen('9090', 'localhost', () => {
+    server.listen(port, () => {
         console.log('server started');
     });
 }
@@ -19,6 +41,7 @@ function startServer() {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 routes(app);
+
 setImmediate(startServer);
 
 module.exports = app;
