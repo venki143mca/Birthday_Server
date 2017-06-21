@@ -1,10 +1,11 @@
 const { Router } = require('express');
 const controller = require('./mailDetails.controller');
+const token = require('./../authentication/token');
 
 const router = new Router();
 
-router.get('/',  controller.index);
+router.get('/', [token.isAuthenticated], controller.index);
 
-router.post('/',  controller.create);
+router.post('/', [token.isAuthenticated], controller.create);
 
 module.exports = router;

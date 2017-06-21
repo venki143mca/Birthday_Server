@@ -1,16 +1,16 @@
 const { Router } = require('express');
 const controller = require('./employee.controller');
-
+const token = require('./../authentication/token');
 const router = new Router();
 
-router.get('/',  controller.index);
+router.get('/', [token.isAuthenticated],  controller.index);
 
-router.post('/',  controller.create);
+router.post('/', [token.isAuthenticated],  controller.create);
 
-router.put('/:id', controller.update);
+router.put('/:id', [token.isAuthenticated], controller.update);
 
-router.get('/:id', controller.getEmployee);
+router.get('/:id', [token.isAuthenticated], controller.getEmployee);
 
-router.delete('/:id', controller.delete);
+router.delete('/:id', [token.isAuthenticated], controller.delete);
 
 module.exports = router;

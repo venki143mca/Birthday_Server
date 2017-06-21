@@ -7,6 +7,7 @@ const { routes } = require('./routes');
 
 
 const app = express();
+app.set('jwtTokenSecret', 'YOUR_SECRET_STRING');
 app.use(cors());
 const server = http.createServer(app);
 

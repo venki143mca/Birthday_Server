@@ -1,5 +1,24 @@
 const service = require('./user.service');
+const token = require('./../authentication/token');
 
+exports.login = (req, res) => {
+    console.log('User:: controller:: index', req.body);
+    const query = req.query;
+    console.log('username::::', req.body.userName);
+    service.getAllUsers(req.body.userName, req.body.password)
+        .then(
+        users => {
+            res.json(token.generateToken(users[0]));
+            res.status(200);
+            res.end();
+        }
+        ).catch(
+        err => {
+            res.status(500);
+            res.end('Error occured from server side.');
+        }
+        );
+}
 
 exports.index = (req, res) => {
     console.log('User:: controller:: index');
