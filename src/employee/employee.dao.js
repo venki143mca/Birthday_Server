@@ -67,7 +67,7 @@ function getEmployee(id) {
 }
 
 function updateEmployee(id, employee) {
-    console.log(`DAO:: getEmployee ${id}`);
+    console.log(`DAO:: updateEmployee ${id}`);
     loadData();
     const emp = getEmployeeById(id);
     if (emp) {

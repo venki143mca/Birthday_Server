@@ -4,10 +4,13 @@ const moment = require('moment');
 function isAuthenticated(req, res, next) {
     console.log("Middleware::Authentication");
     const token = req.headers['x-access-token'];
+    if(!token) {
+        res.send('Access token has expired.', 401);
+    }
     const decoded = jwt.decode(token, "YOUR_SECRET_STRING");
     const d = Date.now();
     if (decoded.exp <= d) {
-        res.send('Access token has expired.', 403);
+        res.send('Access token has expired.', 401);
     }
     next();
 }

@@ -16,7 +16,7 @@ function getEmployee(id) {
 }
 
 function updateEmployee(id, employee) {
-    console.log(`service:: getEmployee ${id}`);
+    console.log(`service:: update ${id}`);
     if(id && employee.lastName)  {
         return dao.updateEmployee(id, employee);
     }
