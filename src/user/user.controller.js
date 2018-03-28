@@ -7,16 +7,22 @@ exports.login = (req, res) => {
     console.log('username::::', req.body.userName);
     service.getAllUsers(req.body.userName, req.body.password)
         .then(
-        users => {
-            res.json(token.generateToken(users[0]));
-            res.status(200);
-            res.end();
-        }
+            users => {
+                console.log('reached here', users);
+                if (users != null && users.length != 0) {
+                    res.json(token.generateToken(users[0]));
+                    res.status(200);
+                    res.end();
+                } else {
+                    res.status(403);
+                    res.end("UnAuthorized.");
+                }
+            }
         ).catch(
-        err => {
-            res.status(500);
-            res.end('Error occured from server side.');
-        }
+            err => {
+                res.status(500);
+                res.end('Error occured from server side.');
+            }
         );
 }
 
@@ -26,16 +32,16 @@ exports.index = (req, res) => {
     console.log('username::::', query.userName);
     service.getAllUsers(query.userName, query.password)
         .then(
-        users => {
-            const result = { result: users, length: users.length };
-            res.status(200).json(result);
-            res.end();
-        }
+            users => {
+                const result = { result: users, length: users.length };
+                res.status(200).json(result);
+                res.end();
+            }
         ).catch(
-        err => {
-            res.status(500);
-            res.end('Error occured from server side.');
-        }
+            err => {
+                res.status(500);
+                res.end('Error occured from server side.');
+            }
         );
 }
 
@@ -49,10 +55,10 @@ exports.create = (req, res) => {
             res.end();
         }).
         catch(
-        err => {
-            res.status(500);
-            res.end('Error occured from server side.');
-        }
+            err => {
+                res.status(500);
+                res.end('Error occured from server side.');
+            }
         );
 }
 
@@ -66,15 +72,15 @@ exports.getUser = (req, res) => {
             res.end();
         }).
         catch(
-        err => {
-            if (err) {
-                res.status(err.code);
-                res.end(err.message);
-            } else {
-                res.status(500);
-                res.end('Error occured from server side.');
+            err => {
+                if (err) {
+                    res.status(err.code);
+                    res.end(err.message);
+                } else {
+                    res.status(500);
+                    res.end('Error occured from server side.');
+                }
             }
-        }
         );
 }
 
@@ -93,9 +99,9 @@ exports.delete = (req, res) => {
             }
         }).
         catch(
-        err => {
-            res.status(err.code);
-            res.end(err.message);
-        }
+            err => {
+                res.status(err.code);
+                res.end(err.message);
+            }
         );;
 }

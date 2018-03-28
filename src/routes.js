@@ -1,9 +1,7 @@
-const employeeRouter = require('./employee');
-const mailDetailsRouter = require('./mailDetails');
 const userRouter = require('./user');
+const playersRouter = require('./players');
 
 exports.routes = app => {
-    app.use('/employee', employeeRouter);
-    app.use('/mailDetails', mailDetailsRouter);
     app.use('/user', userRouter);
+    app.use('/cricket/players', playersRouter);
 }

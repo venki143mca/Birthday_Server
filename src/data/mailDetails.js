@@ -1,1 +1,0 @@
-[{"cc":"eswr@tcs.com","bcc":"eswar@tcs.com","subject":"Happy","body":"Thanks","mailBody":"Thanks"}]

@@ -10,7 +10,11 @@ const app = express();
 app.set('jwtTokenSecret', 'YOUR_SECRET_STRING');
 app.use(cors());
 const server = http.createServer(app);
+const io = require('socket.io')(server);
 
+io.on('connection', function(socket){
+  console.log('a user connected');
+});
 /**
  * Normalize a port into a number, string, or false.
  */
@@ -30,12 +34,12 @@ function normalizePort(val) {
 
   return false;
 }
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '3001');
 app.set('port', port);
 
 function startServer() {
     server.listen(port, () => {
-        console.log('server started');
+        console.log('server started', port);
     });
 }
 

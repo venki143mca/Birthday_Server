@@ -1,6 +1,11 @@
 const user = {
     id: Number,
-    name: String,
+    firstName: String,
+    lastName: String,
     userName: String,
-    password: String
+    password: String,
+    email: String,
+    altEmail: String,
+    phoneNumber: String,
+    dob: Date
 }

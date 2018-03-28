@@ -5,14 +5,20 @@ function isAuthenticated(req, res, next) {
     console.log("Middleware::Authentication");
     const token = req.headers['x-access-token'];
     if(!token) {
-        res.send('Access token has expired.', 401);
+        res.status(401).send('Access token has expired.');
     }
     const decoded = jwt.decode(token, "YOUR_SECRET_STRING");
     const d = Date.now();
     if (decoded.exp <= d) {
-        res.send('Access token has expired.', 401);
+        res.status(401).send('Access token has expired.');
     }
     next();
+}
+
+function decode(req) {
+    const token = req.headers['x-access-token'];
+    const decoded = jwt.decode(token, "YOUR_SECRET_STRING");
+    return decoded.iss;
 }
 
 function generateToken(user) {
@@ -20,7 +26,7 @@ function generateToken(user) {
     console.log(user);
 
     var token = jwt.encode({
-        iss: user.userName,
+        iss: user,
         exp: expires
     }, "YOUR_SECRET_STRING");
 
@@ -41,5 +47,6 @@ function invalidateToken() {
 }
 module.exports = {
     isAuthenticated,
-    generateToken
+    generateToken,
+    decode
 }
